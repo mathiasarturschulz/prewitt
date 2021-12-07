@@ -20,18 +20,9 @@ class Prewitt:
             string: String com o conteúdo da imagem
         """
         # realiza a leitura da imagem
-        img = cv2.imread(self.imageName)
+        img = cv2.imread(self.imageName, cv2.IMREAD_GRAYSCALE)
 
-        # converte a imagem para YUV
-        yuvImg = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
-
-        # aplica a equalização
-        yuvImg[:, :, 0] = cv2.equalizeHist(yuvImg[:, :, 0])
-
-        # converte para RGB
-        histEqualization = cv2.cvtColor(yuvImg, cv2.COLOR_YUV2BGR)
-
-        return histEqualization
+        return img
 
     def __filename(self):
         """Método responsável por gerar o nome da imagem
@@ -39,7 +30,7 @@ class Prewitt:
         Returns:
             string: Nome da imagem
         """
-        return 'images/eq-{}-{}.ppm'.format(
+        return 'images/prewitt-{}-{}.jpg'.format(
             self.imageName.split('.')[0], datetime.now()
         )
 
@@ -52,3 +43,8 @@ class Prewitt:
         data = self.__generateData()
 
         cv2.imwrite(self.__filename(), data)
+
+
+
+prewitt = Prewitt('Fig2.jpg')
+prewitt.generate()
