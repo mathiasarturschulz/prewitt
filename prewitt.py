@@ -2,6 +2,7 @@ import cv2
 import math
 import numpy as np
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 class Prewitt:
     """Classe responsável por gerar uma imagem utilizando o operador Prewitt
@@ -15,9 +16,11 @@ class Prewitt:
         """
         self.imageName = imageName
 
-    def __generateData(self):
+    def __generateData(self, img):
         """Método responsável pela geração do conteúdo da imagem
 
+        Args:
+            img (str): Imagem
         Returns:
             string: String com o conteúdo da imagem
         """
@@ -32,33 +35,26 @@ class Prewitt:
             [-1, -1, -1]
         ]
 
-        # realiza a leitura da imagem já em tons de cinza
-        img = cv2.imread(self.imageName, cv2.IMREAD_GRAYSCALE)
-
         # busca a largura e altura da imagem
         width, height = img.shape
 
+        # monta um array inicialmente com zeros
         pixels = np.zeros((int(width), int(height)))
-        print('pixels')
-        print(pixels)
 
-        linScale = .3
-
-        #For each pixel in the image
-        for row in range(width-len(prewittx)):
-            for col in range(height-len(prewittx)):
+        # percorre cada pixel da imagem
+        for row in range(width - len(prewittx)):
+            for col in range(height - len(prewittx)):
                 Gx = 0
                 Gy = 0
+                # realiza os cálculos para cada pixel
                 for i in range(len(prewittx)):
                     for j in range(len(prewitty)):
-                        val = img[row+i, col+j] * linScale
-                        Gx += prewittx[i][j] * val
-                        Gy += prewitty[i][j] * val
+                        value = img[row + i, col + j]
+                        Gx += prewittx[i][j] * value
+                        Gy += prewitty[i][j] * value
 
-                pixels[(row+1),(col+1)] = int(math.sqrt(Gx*Gx + Gy*Gy))
+                pixels[row + 1, col + 1] = int(math.sqrt(Gx * Gx + Gy * Gy))
 
-        print('pixels')
-        print(pixels)
         return pixels
 
     def __filename(self):
@@ -77,11 +73,23 @@ class Prewitt:
         Returns:
             string: Nome da imagem gerada
         """
-        data = self.__generateData()
+        # realiza a leitura da imagem já em tons de cinza
+        img = cv2.imread(self.imageName, cv2.IMREAD_GRAYSCALE)
 
-        cv2.imwrite(self.__filename(), data)
+        data = self.__generateData(img)
 
-
+        # realiza a geração do gráfico
+        fig, axes = plt.subplots(
+            ncols=2, sharex=True, sharey=True, figsize=(8, 4)
+        )
+        axes[0].imshow(img, cmap=plt.cm.gray)
+        axes[0].set_title('Imagem Original')
+        axes[1].imshow(data, cmap=plt.cm.gray)
+        axes[1].set_title('Imagem com Operador Prewitt')
+        for ax in axes:
+            ax.axis('off')
+        plt.tight_layout()
+        plt.savefig(self.__filename())
 
 prewitt = Prewitt('Fig2.ppm')
 prewitt.generate()

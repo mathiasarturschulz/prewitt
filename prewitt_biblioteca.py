@@ -25,4 +25,4 @@ for ax in axes:
 
 plt.tight_layout()
 # plt.show()
-plt.savefig('images/prewitt_biblioteca.jpg')
+plt.savefig('images/Fig2.jpg')
