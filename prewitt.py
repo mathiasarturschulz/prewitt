@@ -46,5 +46,5 @@ class Prewitt:
 
 
 
-prewitt = Prewitt('Fig2.jpg')
+prewitt = Prewitt('Fig2.ppm')
 prewitt.generate()

@@ -1,9 +1,11 @@
 # pip install scikit-image
+import cv2
 import matplotlib.pyplot as plt
 from skimage import filters
-from skimage.data import camera
 
-image = camera()
+# realiza a leitura da imagem
+image = cv2.imread('Fig2.ppm', cv2.IMREAD_GRAYSCALE)
+
 prewitt = filters.prewitt(image)
 # prewitt = filters.prewitt_h(image)
 # prewitt = filters.prewitt_v(image)
