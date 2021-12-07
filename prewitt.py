@@ -91,5 +91,9 @@ class Prewitt:
         plt.tight_layout()
         plt.savefig(self.__filename())
 
+
+# realiza a geração das imagens
+prewitt = Prewitt('Fig1.ppm')
+prewitt.generate()
 prewitt = Prewitt('Fig2.ppm')
 prewitt.generate()
