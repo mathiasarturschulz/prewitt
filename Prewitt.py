@@ -8,6 +8,7 @@ class Prewitt:
     """Classe responsável por gerar uma imagem utilizando o operador Prewitt
     """
 
+
     def __init__(self, imageName) -> None:
         """Construtor da classe Prewitt
 
@@ -15,6 +16,7 @@ class Prewitt:
             imageName (str): Nome da imagem base para geração da nova imagem
         """
         self.imageName = imageName
+
 
     def __generateData(self, img):
         """Método responsável pela geração do conteúdo da imagem
@@ -57,6 +59,7 @@ class Prewitt:
 
         return pixels
 
+
     def __filename(self):
         """Método responsável por gerar o nome da imagem
 
@@ -67,11 +70,9 @@ class Prewitt:
             self.imageName.split('.')[0], datetime.now()
         )
 
+
     def generate(self):
         """Método responsável por gerar a imagem
-
-        Returns:
-            string: Nome da imagem gerada
         """
         # realiza a leitura da imagem já em tons de cinza
         img = cv2.imread(self.imageName, cv2.IMREAD_GRAYSCALE)
@@ -90,10 +91,3 @@ class Prewitt:
             ax.axis('off')
         plt.tight_layout()
         plt.savefig(self.__filename())
-
-
-# realiza a geração das imagens
-prewitt = Prewitt('Fig1.ppm')
-prewitt.generate()
-prewitt = Prewitt('Fig2.ppm')
-prewitt.generate()
