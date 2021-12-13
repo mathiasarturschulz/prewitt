@@ -32,15 +32,15 @@ class Prewitt:
         # geração das duas máscaras
         # detecção das bordas verticais de uma imagem
         prewittx = [
-            [-1, 0, 1],
-            [-1, 0, 1],
-            [-1, 0, 1]
+            [-1,  0,  1],
+            [-1,  0,  1],
+            [-1,  0,  1]
         ]
         # detecção das bordas horizontais de uma imagem
         prewitty = [
-            [ 1,  1,  1],
+            [-1, -1, -1],
             [ 0,  0,  0],
-            [-1, -1, -1]
+            [ 1,  1,  1]
         ]
 
         # busca a largura e altura da imagem
