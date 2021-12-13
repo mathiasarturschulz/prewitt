@@ -31,13 +31,13 @@ class Prewitt:
         """
         # geração das duas máscaras
         # detecção das bordas verticais de uma imagem
-        prewittx = [
+        prewittX = [
             [-1,  0,  1],
             [-1,  0,  1],
             [-1,  0,  1]
         ]
         # detecção das bordas horizontais de uma imagem
-        prewitty = [
+        prewittY = [
             [-1, -1, -1],
             [ 0,  0,  0],
             [ 1,  1,  1]
@@ -50,18 +50,22 @@ class Prewitt:
         pixels = np.zeros((int(width), int(height)))
 
         # percorre cada pixel da imagem
-        for row in range(width - len(prewittx)):
-            for col in range(height - len(prewittx)):
+        for row in range(width - len(prewittX)):
+            for col in range(height - len(prewittX)):
                 Gx = 0
                 Gy = 0
                 # realiza os cálculos para cada pixel
-                for i in range(len(prewittx)):
-                    for j in range(len(prewitty)):
+                # percorre pixels "vizinhos" para determinar se o pixel atual esta em uma borda
+                # calcula a diferença de intensidades de pixel em uma região de borda
+                for i in range(len(prewittX)):
+                    for j in range(len(prewittY)):
                         value = img[row + i, col + j]
-                        Gx += prewittx[i][j] * value
-                        Gy += prewitty[i][j] * value
+                        Gx += prewittX[i][j] * value
+                        Gy += prewittY[i][j] * value
 
-                pixels[row + 1, col + 1] = int(math.sqrt(Gx * Gx + Gy * Gy))
+                # realiza a combinação dos resultantes do gradiente de aproximações
+                # resulta a magnitude do gradiente
+                pixels[row + 1, col + 1] = int(math.sqrt((Gx * Gx) + (Gy * Gy)))
 
         return pixels
 
