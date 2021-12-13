@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 
 class Prewitt:
     """Classe responsável por gerar uma imagem utilizando o operador Prewitt
+
+    :Authors:
+        Mathias Artur Schulz <mathias@schulz.net.br>
     """
 
 
@@ -22,15 +25,18 @@ class Prewitt:
         """Método responsável pela geração do conteúdo da imagem
 
         Args:
-            img (str): Imagem
+            img (array): Imagem
         Returns:
             string: String com o conteúdo da imagem
         """
+        # geração das duas máscaras
+        # detecção das bordas verticais de uma imagem
         prewittx = [
             [-1, 0, 1],
             [-1, 0, 1],
             [-1, 0, 1]
         ]
+        # detecção das bordas horizontais de uma imagem
         prewitty = [
             [ 1,  1,  1],
             [ 0,  0,  0],
